@@ -40,7 +40,7 @@ const tierInfo = [
 ];
 
 const ratingInfo = [
-  0, 30, 60, 90, 120, 150, 200, 300, 400, 500, 600, 800, 950, 1100, 1250, 1400,
+  0, 30, 60, 90, 120, 150, 200, 300, 400, 500, 650, 800, 950, 1100, 1250, 1400,
   1600, 1750, 1900, 2000, 2100, 2200, 2300, 2400, 2500, 2600, 2700, 2800, 2850,
   2900, 2950, 3000,
 ];
@@ -75,7 +75,6 @@ const CenterWrapper = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
-  /* background-color: rgb(0, 0, 255); */
   width: 100vw;
   height: 50vh;
   background-color: #ffffff;
@@ -90,47 +89,54 @@ const UserInfoContainer = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 25px 15px;
-  /* background: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
-
-  /* box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1); */
-  /* border-radius: 15px; */
-  /* margin-top: 25px; */
 `;
 
 const Header = styled.div`
-  /* background-color: rgb(0, 255, 0); */
   max-width: 1400px;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 15px;
   margin-top: 25px;
-  /* box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1); */
   border-radius: 10px;
-  background-color: #ffffff;
-  /* background: ${(props) =>
-    props.isEditing
-      ? "rgba(0, 0, 0, 0.5)"
-      : "linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%);"}; */
   * {
     font-family: "SBAggroM";
   }
 `;
 
+const BadgeContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  position: absolute;
+  top: 25px;
+  max-width: 1400px;
+  width: 100%;
+  z-index: 0;
+`;
+
+const Badge = styled.img`
+  width: 75px;
+  height: 75px;
+`;
+
 const InputContainer = styled.div`
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   position: absolute;
+  z-index: 99;
   top: 25px;
+  max-width: 1400px;
+  width: 100%;
+  font-family: "SBAggroM";
 `;
 
 const Input = styled.input`
   all: unset;
   padding: 10px 10px;
-  width: 400px;
-  font-size: 50px;
+  width: 500px;
+  font-size: 68px;
   color: black;
   :focus {
     outline: none;
@@ -143,10 +149,6 @@ const Input = styled.input`
   }
 `;
 
-const Name = styled.h1`
-  font-size: 50px;
-  padding-top: 10px;
-`;
 
 const EditButton = styled.button`
   all: unset;
@@ -159,26 +161,14 @@ const EditButton = styled.button`
   }
 `;
 
-const ProfileContainer = styled.div`
-  height: 150px;
-  /* background: linear-gradient(to top, #e6e9f0 0%, #eef1f5 100%); */
-  background-color: #ffffff;
-  /* box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1); */
-  display: flex;
-  align-items: center;
-  border-radius: 25px;
-  padding: 5px 20px;
-  position: absolute;
-`;
-
 const ProfilePhoto = styled.img`
-  height: 150px;
-  width: 150px;
+  height: 200px;
+  width: 200px;
   border-radius: 50%;
-  margin-right: 25px;
-  margin-left: 10px;
   position: absolute;
-  top: -40px;
+  top: -75px;
+  border: 10px solid white;
+  background-color: white;
 
   ${(props) =>
     props.tier < 11
@@ -194,33 +184,12 @@ const ProfilePhoto = styled.img`
       : `${props.theme.masterShadow}`};
 `;
 
-const ProfileTextContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin-right: 120px;
-`;
-
-const ProfileName = styled.span`
-  font-weight: 500;
-  font-size: 18px;
-`;
-
-const Rank = styled.span`
-  font-weight: 700;
-`;
-
 const TierBadge = styled.img`
   width: 150px;
   height: 150px;
   position: absolute;
   top: 0;
   right: 50px;
-`;
-
-const Tier = styled.h2`
-  font-size: 36px;
-  margin-bottom: 5px;
 `;
 
 const ProgressBarContainer = styled.div`
@@ -244,6 +213,23 @@ const ExpContainer = styled.div`
 const Exp = styled.span`
   font-size: 18px;
   font-weight: 600;
+
+  color: ${(props) =>
+    props.tier < 6
+      ? `#c79081`
+      : props.tier < 11
+      ? `#637993`
+      : props.tier < 16
+      ? `${props.theme.goldBg}`
+      : props.tier < 21
+      ? `${props.theme.platinumBg}`
+      : props.tier < 26
+      ? `${props.theme.diamondBg}`
+      : props.tier < 31
+      ? "#ff0844"
+      : props.tier === 31
+      ? `${props.theme.masterBg}`
+      : "red"};
   span {
     margin: 3px;
   }
@@ -265,7 +251,11 @@ const RatingProgressBar = styled.meter`
   }
   ::-webkit-meter-optimum-value {
     background: ${(props) =>
-      props.tier < 16
+      props.tier < 6
+        ? `${props.theme.progressDark}`
+        : props.tier < 11
+        ? `${props.theme.silverProgress}`
+        : props.tier < 16
         ? `${props.theme.progressDark}`
         : props.tier < 21
         ? `${props.theme.platinumProgress}`
@@ -347,15 +337,15 @@ function App() {
             </ProfileContainer>
           ) : null
         ) : null} */}
-        <Header>
-          <InputContainer>
-            <EditButton onClick={toggleEdit} isEditing={edit}>
-              {edit ? (
-                <EditOffIcon color="disabled" />
-              ) : (
-                <ModeEditIcon color="disabled" />
-              )}
-            </EditButton>
+        <InputContainer>
+          <EditButton onClick={toggleEdit} isEditing={edit}>
+            {edit ? (
+              <EditOffIcon color="disabled" />
+            ) : (
+              <ModeEditIcon color="disabled" />
+            )}
+          </EditButton>
+          <form onSubmit={toggleEdit}>
             <Input
               type="text"
               required
@@ -364,16 +354,21 @@ function App() {
               onChange={(e) => setText(e.currentTarget.value)}
               disabled={!edit}
             />
-          </InputContainer>
+          </form>
+        </InputContainer>
+        <BadgeContainer>
+          {userInfo?.badge ? (
+            <Badge src={`${userInfo?.badge.badgeImageUrl}`} />
+          ) : null}
+        </BadgeContainer>
 
-          {/* <Name>님의 랭킹정보 입니다.</Name> */}
-        </Header>
+        <Header>{/* <Name>님의 랭킹정보 입니다.</Name> */}</Header>
         <UserInfoContainer>
           {userId ? (
             <>
               <ProgressBarContainer>
                 <ExpContainer>
-                  <Exp>
+                  <Exp tier={userInfo?.tier}>
                     <span>{tierInfo[userInfo?.tier]}</span>
                     <span>{userInfo?.rating}</span>
                   </Exp>
@@ -383,7 +378,7 @@ function App() {
                     ) : (
                       <span>
                         {tierInfo[userInfo?.tier + 1]} 승급까지 -
-                        {ratingInfo[userInfo?.tier + 1]}
+                        {ratingInfo[userInfo?.tier + 1] - userInfo?.rating}
                       </span>
                     )}
                   </ExpLeft>
@@ -398,7 +393,7 @@ function App() {
                       ? ratingInfo[userInfo?.tier]
                       : ratingInfo[userInfo?.tier + 1]
                   }
-                  value={ratingInfo[userInfo?.tier]}
+                  value={userInfo?.rating}
                 ></RatingProgressBar>
               </ProgressBarContainer>
             </>

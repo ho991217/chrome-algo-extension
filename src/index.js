@@ -69,6 +69,7 @@ const theme = {
   bronzeBg: "linear-gradient(to top, #c79081 0%, #dfa579 100%);",
   silverBg:
     "linear-gradient(-180deg, #BCC5CE 0%, #929EAD 98%), radial-gradient(at top left, rgba(255,255,255,0.30) 0%, rgba(0,0,0,0.30) 100%); background-blend-mode: screen;",
+  silverProgress: "linear-gradient(to right, #637993 0%, #80A6D3 100%);",
   goldBg: "linear-gradient(to top, #e6b980 0%, #eacda3 100%);",
   goldShadow:
     "box-shadow: 0px 5px 5px -5px rgba(224,258,55,0.33), 0px 10px 20px 5px rgba(224,158,55,0.33);",
@@ -84,10 +85,11 @@ const theme = {
   rubyProgress: "linear-gradient(to right, #EA3364 0%, #E43223 100%);",
   rubyShadow:
     "box-shadow: 0px 5px 5px -5px rgba(234,51,100,0.33), 0px 10px 20px 5px rgba(234,51,100,0.33);",
-  masterBg: "linear-gradient(-225deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 100%);",
-  masterProgress: "linear-gradient(to right, #00dbde 0%, #fc00ff 100%);",
+  masterBg: "linear-gradient(225deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 100%);",
+  masterProgress:
+    "linear-gradient(-90deg, #2CD8D5 0%, #C5C1FF 56%, #FFBAC3 100%);",
   masterShadow:
-    "box-shadow: 0px 5px 5px -5px rgba(109,223,168,0.33), 0px 10px 20px 5px rgba(109,223,168,0.33);",
+    "box-shadow: 0px 5px 5px -5px rgba(225,182,242,0.33), 0px 10px 20px 5px rgba(225,182,242,0.33);",
   progressDark: "linear-gradient(to right, #434343 0%, black 100%);",
 };
 
