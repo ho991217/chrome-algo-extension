@@ -9,5 +9,6 @@ export async function CallInfo(userId) {
     return response;
   } catch (error) {
     alert("알 수 없는 사용자 입니다.");
+    localStorage.clear();
   }
 }
