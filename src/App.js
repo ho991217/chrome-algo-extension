@@ -149,7 +149,6 @@ const Input = styled.input`
   }
 `;
 
-
 const EditButton = styled.button`
   all: unset;
   text-align: center;
@@ -306,7 +305,7 @@ function App() {
 
   useEffect(() => {
     retreiveUserData();
-  }, [userId]);
+  });
 
   return (
     <Container tier={userInfo?.tier}>
