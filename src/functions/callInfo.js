@@ -1,7 +1,13 @@
-import React from "react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
-function CallInfo(userId) {
-  return "Info";
+export async function CallInfo(userId) {
+  try {
+    const response = await axios.get(
+      `https://solved.ac/api/v3/user/show?handle=${userId}`
+    );
+    return response;
+  } catch (error) {
+    alert("알 수 없는 사용자 입니다.");
+  }
 }
-
-export default CallInfo;
